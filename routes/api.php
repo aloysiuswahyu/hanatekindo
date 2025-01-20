@@ -20,7 +20,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             Route::get('/', [UserController::class, 'all'])->name('user.all');
             Route::post('add', [UserController::class, 'create'])->name('user.create');
             Route::post('update/{id}', [UserController::class, 'update'])->name('user.update');
-            Route::post('delete/{id}', [UserController::class, 'create'])->name('user.delete');
+            Route::post('delete/{id}', [UserController::class, 'delete'])->name('user.delete');
             Route::get('detail/{id}', [UserController::class, 'view'])->name('user.view');
         });
 
