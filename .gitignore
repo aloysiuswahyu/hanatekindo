@@ -1,0 +1,11 @@
+
+node_modules/
+vendor/
+.env
+public/js/ssr.js
+
+public/js/
+
+public/mix-manifest.json
+
+package-lock.json
