@@ -186,7 +186,7 @@ class UserController extends Controller
         try {
             $getUser = User::where('id', $id)->first();
             $param = $request->post();
-            // dd($param);
+            // dd($getUser);/
             $return['success'] = false;
             $return['data'] = [];
             if (!empty($getUser)) {
@@ -194,8 +194,8 @@ class UserController extends Controller
                 // dd($getUser->password);
 
                 $getUser->name = $param['name'] ?? '';
-                $getUser->password = $param['password'] != '' ? Hash::make($param['password']) : $getUser->password;
-                $getUser->email = $param['email'] ?? '';
+                // $getUser->password = $param['password'] != '' ? Hash::make($param['password']) : $getUser->password;
+                // $getUser->email = $param['email'] ?? '';
                 $getUser->save();
                 // $return['errors'] = [
                 //     'mesage' => 'password tidak sesuai',
@@ -214,7 +214,7 @@ class UserController extends Controller
             $return['success'] = false;
             $return['data'] = [];
             $return['errors'] = [
-                'mesage' => 'internal server error',
+                'mesage' => $e,
             ];
 
             return response()->json($return, 400);
@@ -238,6 +238,25 @@ class UserController extends Controller
 
                 return response()->json($return, 200);
             }
+
+            return response()->json($return, 400);
+        } catch (\Throwable $e) {
+            $return['success'] = false;
+            $return['data'] = [];
+            $return['errors'] = [
+                'mesage' => 'internal server error',
+            ];
+
+            return response()->json($return, 400);
+        }
+    }
+
+    public function logout(Request $request, $id)
+    {
+        try {
+            Auth::guard('web')->logout();
+            $return['success'] = true;
+            $return['data'] = [];
 
             return response()->json($return, 400);
         } catch (\Throwable $e) {
